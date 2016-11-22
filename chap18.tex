@@ -80,14 +80,14 @@
 \begin{algorithm}
 \DontPrintSemicolon
 设置 \(\epsilon\)，步长，应设为较小正数。\;
-设置 \(k\)，吉布斯（Gibbs）步长，为一个较大的值，为预热（burn in）提供冗余。在一个小图像块上训练 RBM 大约可以设为 100。\;
+设置 \(k\)，吉布斯（Gibbs）步长，设置时应考虑为预热（burn in）提供冗余，设置一个较大的值。在一个小图像块上训练 RBM 大约可以设为 100。\;
 \While{未收敛}{
     从训练集中抽样一个包含 \(m\) 个样本 \(\{\bm{x}^{(1)},\ldots,\bm{x}^{(m)}\}\) 的小批（minibatch）\;
     \(\bm{g} \longleftarrow \frac{1}{m}\sum^m_{i=1}
     	\nabla_{\bm{\theta}}\log\widetilde{p}(\bm{x}^{(i)};\bm{\theta})\).\;
     用随机数初始化一组 \(m\) 个样本（可以使用例如均匀分布或正态分布，或者也可以使用与目标边缘分布想匹配的分布）。\;
     \For{\(i=1\) to \(k\)}{
-    	\For{\(i=1\) to \(k\)}{
+    	\For{\(j=1\) to \(m\)}{
         	\(\widetilde{\bm{x}}^{(j)} 
             \longleftarrow \text{吉布斯更新}(\widetilde{\bm{x}}^{(j)}).\)\;
         }
@@ -98,7 +98,7 @@
     \(\bm{\theta} \longleftarrow
     	\bm{\theta} + \epsilon\bm{g}\)\;
 }
-\caption{一个简单的蒙特卡洛马尔科夫链算法（MCMC）算法。利用梯度上升来计算带有可解配分函数的对数似然\label{alg:18.1}}
+\caption{一个简单的蒙特卡洛马尔科夫链算法（MCMC）算法。利用梯度上升来计算带有可解配分函数的对数似然。\label{alg:18.1}}
 \end{algorithm}
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
@@ -111,14 +111,16 @@
 \begin{algorithm}
 \DontPrintSemicolon
 设置 \(\epsilon\)，步长，应设为较小正数。\;
-设置 \(k\)，吉布斯（Gibbs）步长，为一个较大的值，为预热（burn in）提供冗余。在一个小图像块上训练 RBM 大约可以设为 100。\;
+设置 \(k\)，吉布斯（Gibbs）步长，设置时，应考虑马尔可夫链从 \(p_{data}\) 中初始化时，需要从 \(p(\bm{x};\bm{\theta})\)中采样，设置为一个较大的值。在一个小图像块上训练 RBM 大约可以设为 1-20。\;
 \While{未收敛}{
     从训练集中抽样一个包含 \(m\) 个样本 \(\{\bm{x}^{(1)},\ldots,\bm{x}^{(m)}\}\) 的小批（minibatch）\;
     \(\bm{g} \longleftarrow \frac{1}{m}\sum^m_{i=1}
     	\nabla_{\bm{\theta}}\log\widetilde{p}(\bm{x}^{(i)};\bm{\theta})\).\;
-    用随机数初始化一组 \(m\) 个样本（可以使用例如均匀分布或正态分布，或者也可以使用与目标边缘分布想匹配的分布）。\;
+    \For{\(i=1\) to \(m\)}{
+    	\(\widetilde{\bm{x}}^{(1)} \longleftarrow \bm{x}^{(i)}.\)\;
+    }
     \For{\(i=1\) to \(k\)}{
-    	\For{\(i=1\) to \(k\)}{
+    	\For{\(j=1\) to \(m\)}{
         	\(\widetilde{\bm{x}}^{(j)} 
             \longleftarrow \text{吉布斯更新}(\widetilde{\bm{x}}^{(j)}).\)\;
         }
@@ -127,9 +129,9 @@
     	\bm{g} - \frac{1}{m}\sum^m_{i=1}
     	\nabla_{\bm{\theta}}\log\widetilde{p}(\bm{x}^{(i)};\bm{\theta})\).\;
     \(\bm{\theta} \longleftarrow
-    	\bm{\theta} + \epsilon\bm{g}\)\;
+    	\bm{\theta} + \epsilon\bm{g}.\)\;
 }
-\caption{对比分歧算法。用梯度上升优化\label{alg:18.2}}
+\caption{对比分歧算法。利用梯度上升进行优化。\label{alg:18.2}}
 \end{algorithm}
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
