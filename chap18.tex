@@ -1,4 +1,4 @@
-\chapter{处理配分函数}
+\chapter{直面配分函数}
 \label{chap:18}
 % Partition Function 配分函数的定义见 wiki：https://www.wikiwand.com/zh/%E9%85%8D%E5%88%86%E5%87%BD%E6%95%B0
 
@@ -6,13 +6,13 @@
 %%%%%%%%%%%%%%%%%%% author:quxiaofeng %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-如 \consider{16.2.2 节}中所见，很多概率模型（一般称为无向图模型）是用\consider{（非正态/未标准化/unnormalized）概率分布 \mbox{ \(\widetilde{p}(\bm{x};\bm{\theta})\)} }定义的。用配分函数\footnote{译者注：配分函数（Partition Function）的定义见 wiki：\url{https://www.wikipedia.org/zh/\%E9\%85\%8D\%E5\%88\%86\%E5\%87\%BD\%E6\%95\%B0}}\(Z(\bm{\theta})\)去除\(\widetilde{p}\)来得到一个概率分布：
+如 \consider{16.2.2 节}中所见，很多概率模型（一般称为无向图模型）是用\consider{未标准化（unnormalized）}的概率分布 \(\widetilde{p}(\bm{x};\bm{\theta})\) 定义的。必须要用配分函数 \(Z(\bm{\theta})\) \footnote{译者注：配分函数（Partition Function）的定义见 wiki：\url{https://www.wikipedia.org/zh/\%E9\%85\%8D\%E5\%88\%86\%E5\%87\%BD\%E6\%95\%B0}} 去除 \(\widetilde{p}\) 才能得到有效的概率分布：
 \begin{equation}
     p(\bm{x};\bm{\theta})
     = \frac{1}{Z(\bm{\theta})}\widetilde{p}(\bm{x};\bm{\theta}).
 \end{equation}
 
-配分函数是\consider{非标准化}概率对于所有状态的积分（连续变量）或和（离散变量）： 
+配分函数是\consider{未标准化}概率对于所有状态的积分（连续变量）或和（离散变量）： 
 \begin{equation}
     \int\widetilde{p}(\bm{x})d\bm{x}
 \end{equation}
@@ -23,7 +23,7 @@
 
 这个运算对于很多常用模型来说是\consider{不可解的（intractable）}。
 
-如\consider{20 章}所见，有些深度学习模型在设计上是有可解标准化常量的，或者无需计算\(p(\bm{x})\)。但其它的模型就需要直接面对不可解配分函数的问题了。本章我们讨论训练和评估具有不可解配分函数的模型的方法。
+如\consider{20 章}所见，有些深度学习模型在设计上是有可解标准化常量的，或者设计为无需计算 \(p(\bm{x})\)。但其它的模型就需要直接面对不可解配分函数的问题了。本章我们讨论训练和评估具有不可解配分函数的模型的方法。
 
 \section{对数似然梯度}
 \label{sec:18.1}
