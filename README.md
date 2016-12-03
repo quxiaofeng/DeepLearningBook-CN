@@ -41,6 +41,7 @@
 另我们非常缺有经验的校对人员，如有意加入，请联系小助手,谢谢。
 
 ### 当前校对人员(持续更新)
+
 @rexnxiaobai, @AdolfKing, @davidjohn001, @oneTaken, @lizhiyuanUSTC, @zhangcg1987, @wubin7019088，@Justin1904，@wcj-Ford
 
 ### 感谢全体贡献者(持续更新)
