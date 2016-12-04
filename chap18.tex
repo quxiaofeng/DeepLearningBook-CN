@@ -66,16 +66,25 @@
     \nabla_{\bm{\theta}}\int\widetilde{p}(\bm{x})d\bm{x}
     = \int\nabla_{\bm\theta}\widetilde{p}(\bm{x})d\bm{x}.
 \end{equation}
-这一等同的结果只是在 \( \widetilde{p} \) 和 \( \nabla_{\bm\theta}\widetilde{p}(\bm{x})d\bm{x} \) 满足一定的正则化条件时成立。根据测度论，需要满足如下条件：(i) 非正态分布\( \widetilde{p} \) 对任意 \(\bm{\theta}\)都是 \(\bm{x}\) 的勒贝格可积函数；
+这一等同的结果只是在 \( \widetilde{p} \) 和 \( \nabla_{\bm\theta}\widetilde{p}(\bm{x})d\bm{x} \) 满足一定的正则化条件时成立。根据测度论，需要满足如下条件：(i) 非正态分布\( \widetilde{p} \) 对每一个 \(\bm{\theta}\)都是 \(\bm{x}\) 的勒贝格可积函数；(ii) 梯度 \( \nabla_{\bm\theta}\widetilde{p}(\bm{x}) \) 必须对所有 \(\bm\theta\) 和几乎所有 \(\bm x\) 都存在；(iii) 必须存在一个 \( \nabla_{\bm\theta}\widetilde{p}(\bm{x}) \) \consider{的可积确界函数} \(R({\bm x})\)，使得 \(\max_i|\frac{\partial}{\partial \theta_i}\widetilde{p}(\bm{x})| \leq R(\bm{x}) \) 对所有 \(\bm\theta\) 和几乎所有 \(\bm x\) 都成立。幸好，常见机器学习模型都具有这些性质。
 
-\begin{equation}
+这种一致性
+\begin{equation}\label{eqn:18.15}
     \nabla_{\bm{x}}\log{}Z
     = \mathbb{E}_{\bm{x}\sim{}p(\bm{x})}
     \nabla_{\bm{\theta}}\log\widetilde{p}(\bm{x})
 \end{equation}
+是蒙特卡洛方法经过适当改进后可以近似地求得配分函数可解模型的最大似然的基础。
+
+学习无向图模型的蒙特卡洛方法为我们提供了直观的框架，可以同时考虑正相和负相。正相，根据从数据中提取的 \(\bm x\) 提高 \(\log\widetilde{p}(\bm x)\)。负相，根据模型分布降低配分函数降低 \(\log\widetilde{p}(\bm x)\)。
+
+在深度学习文献中，一般把 \(\log\widetilde{p}\) \consider{参数化（parameterize）}为能量函数\consider{(公式 16.7)}。
+这里，我们可以把正相解释为压低训练样本的能量；把负相解释为抬高模型中央本的能量，参见图~\ref{fig:18.1}。
 
 \section{随机最大似然和对比分歧}
 \label{sec:18.2}
+
+实现公式~\ref{eqn:18.15} 的一个简单方法，是每次需要梯度的时候，预热一组随机初始化的马尔可夫链，再进行计算。使用随机梯度下降进行学习时，每次计算梯度马尔可夫链都要预热。此方法的训练过程如算法~\ref{alg:18.1} 所示。该方法在内循环中预热马尔可夫链，运算过于复杂，但为更为实际的算法提供了基准。
 
 \begin{algorithm}
 \DontPrintSemicolon
@@ -85,7 +94,7 @@
     从训练集中抽样一个包含 \(m\) 个样本 \(\{\bm{x}^{(1)},\ldots,\bm{x}^{(m)}\}\) 的小批（minibatch）\;
     \(\bm{g} \longleftarrow \frac{1}{m}\sum^m_{i=1}
     	\nabla_{\bm{\theta}}\log\widetilde{p}(\bm{x}^{(i)};\bm{\theta})\).\;
-    用随机数初始化一组 \(m\) 个样本（可以使用例如均匀分布或正态分布，或者也可以使用与目标边缘分布想匹配的分布）。\;
+    用随机数初始化一组 \(m\) 个样本 \(\{\widetilde{\bm{x}}^{(1)},\ldots,\widetilde{\bm{x}}^{(m)}\}\)（可以使用均匀分布或正态分布，或者也可以使用与目标边缘分布相匹配的分布）。\;
     \For{\(i=1\) to \(k\)}{
     	\For{\(j=1\) to \(m\)}{
         	\(\widetilde{\bm{x}}^{(j)} 
@@ -98,8 +107,14 @@
     \(\bm{\theta} \longleftarrow
     	\bm{\theta} + \epsilon\bm{g}\)\;
 }
-\caption{一个简单的蒙特卡洛马尔科夫链算法（MCMC）算法。利用梯度上升来计算带有可解配分函数的对数似然。\label{alg:18.1}}
+\caption{一个简单的蒙特卡洛马尔科夫链算法（MCMC）算法。利用梯度上升来计算带有可解配分函数的最大对数似然。\label{alg:18.1}}
 \end{algorithm}
+
+MCMC 求最大似然，可以看做是在两种力量中取得平衡。一方面，产生数据的地方，推高模型分布；另一方面，模型采样产生的地方压低模型分布。图~\ref{fig:18.1} 所示即为此过程。两种力量分别对应于最大化 \(\log\widetilde{p}\) 和最小化 \(\log Z\)。有几种可行的近似负相的方法。但这些近似方法都可以理解为降低负相计算复杂性的同时，在一些错误的位置压低分布。
+
+负相需要从模型分布中提取样本，这一过程开始理解为从模型中找一些非常有信心的点。
+因为负相降低这些点的概率，一般认为这些是模型对世界的错误认知。
+文献中一般称之为\consider(``幻象'')
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
