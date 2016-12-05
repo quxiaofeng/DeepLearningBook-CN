@@ -6,13 +6,13 @@
 %%%%%%%%%%%%%%%%%%% author:quxiaofeng %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-如 \consider{16.2.2 节}中所见，很多概率模型（一般称为无向图模型）是用\consider{未标准化（unnormalized）}的概率分布 \(\widetilde{p}(\bm{x};\bm{\theta})\) 定义的。必须要用配分函数 \(Z(\bm{\theta})\) \footnote{译者注：配分函数（Partition Function）的定义见 wiki：\url{https://www.wikipedia.org/zh/\%E9\%85\%8D\%E5\%88\%86\%E5\%87\%BD\%E6\%95\%B0}} 去除 \(\widetilde{p}\) 才能得到有效的概率分布：
+如 \consider{16.2.2 节}中所见，很多概率模型（一般称为无向图模型）是用\consider{非标准化（unnormalized）}的概率分布 \(\widetilde{p}(\bm{x};\bm{\theta})\) 定义的。必须要用配分函数 \(Z(\bm{\theta})\) \footnote{译者注：配分函数（Partition Function）的定义见 wiki：\url{https://www.wikipedia.org/zh/\%E9\%85\%8D\%E5\%88\%86\%E5\%87\%BD\%E6\%95\%B0}} 去除 \(\widetilde{p}\) 才能得到有效的概率分布：
 \begin{equation}
     p(\bm{x};\bm{\theta})
     = \frac{1}{Z(\bm{\theta})}\widetilde{p}(\bm{x};\bm{\theta}).
 \end{equation}
 
-配分函数是\consider{未标准化}概率对于所有状态的积分（连续变量）或和（离散变量）： 
+配分函数是\consider{非标准化}概率对于所有状态的积分（连续变量）或和（离散变量）： 
 \begin{equation}
     \int\widetilde{p}(\bm{x})d\bm{x}
 \end{equation}
@@ -112,16 +112,20 @@
 
 MCMC 求最大似然，可以看做是在两种力量中取得平衡。一方面，产生数据的地方，推高模型分布；另一方面，模型采样产生的地方压低模型分布。图~\ref{fig:18.1} 所示即为此过程。两种力量分别对应于最大化 \(\log\widetilde{p}\) 和最小化 \(\log Z\)。有几种可行的近似负相的方法。但这些近似方法都可以理解为降低负相计算复杂性的同时，在一些错误的位置压低分布。
 
-负相需要从模型分布中提取样本，这一过程开始理解为从模型中找一些非常有信心的点。
-因为负相降低这些点的概率，一般认为这些是模型对世界的错误认知。
-文献中一般称之为\consider(``幻象'')
-
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
    \includegraphics[width=\textwidth]{fig/chap18/18_1.png} 
-   \caption{算法 18.1 的``正相''和``负相''}
+   \caption{算法~\ref{alg:18.1} 的``正相''和``负相''。（左）正相时，我们从数据分布中采样一些点，然后推高非标准化的概率。数据中更有可能的点会推高得更多。（右）负相时，我们从模型中采样一些点，然后压低它们的非标准化概率。负相抵消了正相为非标准化概率在每一个位置都简单增加一个巨大常量的倾向。当数据分布和模型分布相等时，正相与负相在一点上推高和压低的几率相等。这时，梯度（的期望）就没有了，训练必然终止。}
    \label{fig:18.1}
 \end{figure}
+
+负相需要从模型分布中提取样本，这一过程开始理解为从模型中找一些非常有信心的点。
+因为负相降低这些点的概率，一般认为这些是模型对世界的错误认知。
+文献中一般称之为\consider{``幻象（Hallucinations）''}或\consider{``神奇粒子（Fantasy particles）''}。
+其实，还真的曾有人提出负相可能是人类和其它动物做梦的原因\consider{(Circk and Mitchison, 1983)}。
+其主要概念是说，大脑维护一个对于整个世界的概率模型。清醒时，当真实事件发生时，遵从 \(\log\widetilde{p}\) 的梯度；睡眠时，遵从 \(\log\widetilde{p}\) 的负梯度最小化 \(\log Z\)，同时体验的则是当前模型的采样。
+这个假说可以很好地解说正相和负相，他们之间的关系及其在算法中的作用，但并未被神经科学所证实。
+
 
 \begin{algorithm}
 \DontPrintSemicolon
