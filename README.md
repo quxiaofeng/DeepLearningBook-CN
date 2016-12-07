@@ -1,8 +1,8 @@
-# DeepLearningBook-CN
+### DeepLearningBook-CN
 
 本项目是由[极视角](http://www.extremevision.com.cn)旗下[极市平台](https://github.com/ExtremeMart)(联系人@extreme-assistant, @LaurenLuoYun)联合 AG Group(联系人@BrowningWan)组织的 Deep Learning(IAN GOODFELLOW, YOSHUA BENGIO, ARRON COURVILLE 联合编著)的开放社区中文翻译活动。
 
-*本项目仅用于学习、研究用途，不得用于任何商业用途。
+*本项目仅用于学习、研究用途，不得用于任何商业用途。如任何个人或机构将此翻译作品作商业用途使用，由使用人自行承担因此引发的一切法律责任，本项目组亦保留对其追究相关法律责任的权利。
 
 ### Deep Learning书籍链接
 
@@ -14,14 +14,14 @@
 <tr><td>章节</td><td>翻译者</td><td>校对者</td><td>翻译进度</td><td>校对进度</td><td>翻译deadline</td></tr>
 <tr><td>0.目录、序言</td><td>@huangynn</td><td>@lizhiyuanUSTC</td><td>已完成</td><td>进行中</td><td>2016/11/30，2016/11/27</td></tr>
 <tr><td>1.深度学习介绍</td><td>@huangynn</td><td>@lizhiyuanUSTC（1.0-1.1）,@rexnxiaobai（1.2）</td><td>已完成</td><td>进行中</td><td>2016/11/30，2016/11/27</td></tr>
-<tr><td>2.线性代数</td><td>pascal_meng@outlook.com</td><td>@swordspoet</td><td>进行中</td><td>未开始</td><td>2016/11/30</td></tr>
-<tr><td>3.概率论与信息论</td><td>@wulemilly,@msnh</td><td>@AdolfKing</td><td>进行中</td><td>未开始</td><td>2016/11/30</td></tr>
-<tr><td>4.数值优化</td><td>@BrowningWan（4.0-4.3），cypress1010@sina.com（4.4-4.5）</td><td>@AdolfKing</td><td>进行中</td><td>未开始</td><td>2016/12/15</td></tr>
-<tr><td>5.机器学习基础</td><td>@kakaguotao(5.2-5.6)，@KaiserW(5.7-5.11)，@yinruiqing(5.1)</td><td>@AdolfKing</td><td>进行中(5.1已翻完)</td><td>未开始</td><td>2016/12/20、2016/12/30、2016/11/20</td></tr>
-<tr><td>6.深度前馈网络</td><td>jim1949@163.com(6.0-6.2),@liviclee(6.3-6.7)</td><td>@AdolfKing</td><td>进行中</td><td>未开始</td><td>2016/12/18、2016/12/10</td></tr>
-<tr><td>7.深度学习的正则化</td><td>@ysh329</td><td>@AdolfKing</td><td>进行中</td><td>未开始</td><td>2017/1/20</td></tr>
-<tr><td>8.训练深度模型的优化方法</td><td>wzwei1636@163.com（8.0-8.2），@SilentSkyWalker（8.3-8.5），@dimitri0802（8.6-8.7）</td><td>@AdolfKing</td><td>进行中</td><td>未开始</td><td>2016/12/25</td></tr>
-<tr><td>9.卷积网络</td><td>@ifighting（9.1-9.6），@iWeisskohl（9.7-9.11）</td><td>@AdolfKing</td><td>进行中</td><td>未开始</td><td>2016/12/20
+<tr><td>2.线性代数</td><td>pascal_meng@outlook.com</td><td>@swordspoet</td><td>已12月4日前翻完</td><td>未开始</td><td>2016/12/04</td></tr>
+<tr><td>3.概率论与信息论</td><td>@wulemilly,@msnh</td><td>@AdolfKing</td><td>已翻译到3.13</td><td>未开始</td><td>2016/12/15</td></tr>
+<tr><td>4.数值优化</td><td>@BrowningWan（4.0-4.3），cypress1010@sina.com（4.4-4.5）</td><td>@AdolfKing</td><td>已翻译到4.3，4.5</td><td>未开始</td><td>2016/12/15</td></tr>
+<tr><td>5.机器学习基础</td><td>@kakaguotao(5.2-5.6)，@KaiserW(5.7-5.11)，@yinruiqing(5.1)</td><td>@AdolfKing</td><td>5.1已翻完，@kaiserw翻译到5.9</td><td>进行中</td><td>2016/12/20、2016/12/30、2016/11/20</td></tr>
+<tr><td>6.深度前馈网络</td><td>jim1949@163.com(6.0-6.2),@liviclee(6.3-6.7)</td><td>@AdolfKing</td><td>已翻译5页</td><td>未开始</td><td>2016/12/18、2016/12/10</td></tr>
+<tr><td>7.深度学习的正则化</td><td>@ysh329</td><td>@AdolfKing</td><td>已翻译5/40</td><td>未开始</td><td>2017/1/20</td></tr>
+<tr><td>8.训练深度模型的优化方法</td><td>wzwei1636@163.com（8.0-8.2），@SilentSkyWalker（8.3-8.5），@dimitri0802（8.6-8.7）</td><td>@AdolfKing</td><td>8.1.3，8.7.5</td><td>未开始</td><td>2016/12/25</td></tr>
+<tr><td>9.卷积网络</td><td>@ifighting（9.0-9.6），@iWeisskohl（9.7-9.11）</td><td>@AdolfKing</td><td>已翻译到9.2和9.9</td><td>未开始</td><td>2016/12/20
 </td></tr>
 <tr><td>10.序列模型：循环网络与递归网络</td><td>@yinruiqing</td><td>@AdolfKing</td><td>进行中</td><td>未开始</td><td>2017/1/20</td></tr>
 <tr><td>11.实战方法</td><td>@rickymf4</td><td>@davidjohn001</td><td>进行中</td><td>未开始</td><td>2017/1/20</td></tr>
